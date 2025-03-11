@@ -1,5 +1,85 @@
 # Руководство по работе с проектом
 
+## React
+
+### Особенности переноса разметки в JSX
+
+Второе большое отличие кроется в именовании «атрибутов». Мы не случайно взяли слово «атрибут» в кавычки. Ведь на самом деле речь идёт о пропсах. Пользуемся правилами, которые применяем в JS при обращении к свойстам элементов: camelCase и альтернативные названия для атрибутов. Например: for меняется на htmlFor, class меняется на className, tabindex на tabIndex, xlink:href на xlinkHref и так далее.
+
+class → className
+style=”width: 80%» → style={{ width: «80%» }}
+tab-index=”0» → tabIndex={0}
+
+```JSX
+function App() {
+  return (
+    <div>
+      <label htmlFor="username">Как тебя зовут?</label>
+      <input className="username-field" id="username" />
+      <button tabIndex="0">Отправить</button>
+    </div>
+  );
+}
+```
+
+В JSX мы можем использовать произвольные выражения. Для этого их нужно обернуть в фигурные скобки. Очень частый паттерн заключается в применении метода map у массива. Если он вернёт JSX, то эти элементы будут отрендерены.
+
+```JSX
+function App() {
+  return (
+    <div>
+      <button>Отправить</button>
+      <button>{1 + 1 + 2}</button>
+      <button>{"Какой-то текст"}</button>
+      <ul>
+        {
+          [
+            'Первый элемент списка',
+            'Тест2'
+          ].map((item) => <li>{item}</li>)
+        }
+      </ul>
+    </div>
+  )
+}
+```
+
+С пропом style отдельная история. Если в HTML это просто строка, то в JSX — это объект. Ключ определяет соответствующее CSS-свойство. Имена ключей описываются в формате camelCase.
+
+```JSX
+function App() {
+  return (
+    <div>
+      <h1
+          style={{
+            color: 'green',
+            fontSize: '100px',
+            textTransform: 'uppercase'
+          }}
+        >
+        Hello World
+      </h1>
+    </div>
+  );
+```
+
+ Если для компонента или элемента вы указали проп (в примере это required) без значения, то подразумевается, что его значение true. Это удобно, когда требуется указать атрибуты вроде `checked`, `required`. Если передали такой проп, то значит значение true, а если не передали — false.
+
+```JSX
+function App() {
+  return (
+    <React.Fragment>
+      <h1>Hello!</h1>
+      <form>
+        <input type="text" required />
+      </form>
+    </React.Fragment>
+  );
+};
+```
+
+###
+
 Данный проект создан с помощью [Create React App](https://github.com/facebook/create-react-app).
 
 ## Структура проекта
